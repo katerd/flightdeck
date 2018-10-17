@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>Exe</OutputType>
+        <TargetFramework>net471</TargetFramework>
+        <LangVersion>7.3</LangVersion>
+        <StartupObject>SimHook.Program</StartupObject>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+      <PlatformTarget>x86</PlatformTarget>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Reference Include="Microsoft.CSharp" />
+      <Reference Include="Microsoft.FlightSimulator.SimConnect, Version=10.0.62615.0, Culture=neutral, PublicKeyToken=5f523ae7e6e1b389">
+        <HintPath>..\externals\Microsoft.FlightSimulator.SimConnect.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <PackageReference Include="Nancy" Version="1.4.5" />
+      <PackageReference Include="Nancy.Hosting.Self" Version="1.4.1" />
+    </ItemGroup>
+
+</Project>
