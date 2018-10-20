@@ -32,6 +32,21 @@ namespace SimHook.NancyModules
 
                 return "Ok";
             };
+
+            Get["/headingHold"] = _ => AutopilotState.HeadingHold.ToString();
+            Post["/headingHold"] = _ =>
+            {
+                var str = Request.Body.AsString();
+                var headingHold = bool.Parse(str);
+
+                if (AutopilotState.HeadingHold == headingHold)
+                    return "Ok";
+
+                AutopilotState.HeadingHold = headingHold;
+                AutopilotState.HeadingHoldStale = true;
+
+                return "Ok";
+            };
         }
     }
 }

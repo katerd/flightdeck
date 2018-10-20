@@ -7,5 +7,6 @@ namespace SimHook.SimData
     {
         public int Heading;
         public bool Enabled { get; set; }
+        public bool HeadingHold { get; set; }
     }
 }

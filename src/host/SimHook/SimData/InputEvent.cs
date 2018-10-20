@@ -4,6 +4,8 @@
     {
         AutopilotSetHeading,
         AutopilotDisable,
-        AutopilotEnable
+        AutopilotEnable,
+        HeadingHoldOn,
+        HeadingHoldOff
     }
 }

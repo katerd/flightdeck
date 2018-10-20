@@ -53,6 +53,9 @@ namespace SimHook
             _simConnect.AddToDataDefinition(DataDefinition.AutopilotDefinition,
                 "AUTOPILOT MASTER", "Bool", SIMCONNECT_DATATYPE.INT32, 0.001f, SimConnect.SIMCONNECT_UNUSED);
             
+            _simConnect.AddToDataDefinition(DataDefinition.AutopilotDefinition,
+                "AUTOPILOT HEADING LOCK", "Bool", SIMCONNECT_DATATYPE.INT32, 0.001f, SimConnect.SIMCONNECT_UNUSED);
+            
             _simConnect.RequestDataOnSimObject(DataRequest.AutopilotData, DataDefinition.AutopilotDefinition,
                 SimConnect.SIMCONNECT_OBJECT_ID_USER, SIMCONNECT_PERIOD.SECOND, 0, 0, 0, 0);
             
@@ -61,6 +64,9 @@ namespace SimHook
             _simConnect.MapClientEventToSimEvent(InputEvent.AutopilotSetHeading, "HEADING_BUG_SET");
             _simConnect.MapClientEventToSimEvent(InputEvent.AutopilotDisable, "AUTOPILOT_OFF");
             _simConnect.MapClientEventToSimEvent(InputEvent.AutopilotEnable, "AUTOPILOT_ON");
+            
+            _simConnect.MapClientEventToSimEvent(InputEvent.HeadingHoldOn, "AP_HDG_HOLD_ON");
+            _simConnect.MapClientEventToSimEvent(InputEvent.HeadingHoldOff, "AP_HDG_HOLD_OFF");
             
             _simConnect.AddClientEventToNotificationGroup(Groups.DefaultGroup, InputEvent.AutopilotSetHeading, false);
                                     
@@ -124,6 +130,30 @@ namespace SimHook
                         0);
                 }
             }
+
+            if (AutopilotState.HeadingHoldStale)
+            {
+                AutopilotState.HeadingHoldStale = false;
+                
+                if (AutopilotState.HeadingHold)
+                {
+                    _simConnect.TransmitClientEvent(
+                        SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                        InputEvent.HeadingHoldOn,
+                        0,
+                        Groups.DefaultGroup,
+                        0);
+                }
+                else
+                {
+                    _simConnect.TransmitClientEvent(
+                        SimConnect.SIMCONNECT_OBJECT_ID_USER,
+                        InputEvent.HeadingHoldOff,
+                        0,
+                        Groups.DefaultGroup,
+                        0);
+                }
+            }
         }
 
         private static void SimConnectOnOnRecvEvent(SimConnect sender, SIMCONNECT_RECV_EVENT data)
@@ -145,7 +175,8 @@ namespace SimHook
                 case AutopilotData apData:
                     AutopilotState.Heading = apData.Heading;
                     AutopilotState.Enabled = apData.Enabled;
-                    LogInfo($"Heading: {apData.Heading}, Enabled:{apData.Enabled}");
+                    AutopilotState.HeadingHold = apData.HeadingHold;
+                    LogInfo($"Heading: {apData.Heading}, Enabled:{apData.Enabled} HeadingLock: {apData.HeadingHold}");
                     break;
             }
         }
