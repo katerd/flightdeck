@@ -7,11 +7,9 @@ A pet project to create various flight deck control systems using custom electro
 ## Contents
 
 - 1x C# flight deck host application (Framework 4.7)
-  - Uses SimConnect to connect to the simulation and provide (currently) a RESTful API for reading and writing updates.
-- 1x Raspberry PI 2 (or greater) python device controller
-  - The project currently uses one Raspberry PI and various breadboards on which the inputs and displays are mounted.
-- 1x Arduino
-  - Switch panel interface
+  - Uses SimConnect to connect to the simulation and send/recv network messages.
+- 1x Arduino mega
+  - Display and switch controller
 - Assorted wiring diagrams and pictures
   - Photographs and wiring diagrams!
 
