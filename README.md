@@ -10,17 +10,17 @@ A pet project to create various flight deck control systems using custom electro
   - Uses SimConnect to connect to the simulation and provide (currently) a RESTful API for reading and writing updates.
 - 1x Raspberry PI 2 (or greater) python device controller
   - The project currently uses one Raspberry PI and various breadboards on which the inputs and displays are mounted.
+- 1x Arduino
+  - Switch panel interface
 - Assorted wiring diagrams and pictures
   - Photographs and wiring diagrams!
 
 ## Roadmap
 
-- Autopilot (Master, Heading, Altitude, Rate of Ascent/Descent, Airspeed, "GPS DRIVES NAV1") each with display output, rotary input, and lock status lights.
+- Bendix King C172 radio stack
 - Landing gear (with feedback LEDs)
-- Comms (Frequency select, voice, NAV, DME
-- Lights (On/off All the things)
+- Interior and exterior lights
 - Parking brake
-
 
 ## Useful links
 
